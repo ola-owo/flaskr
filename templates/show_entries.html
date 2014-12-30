@@ -3,19 +3,23 @@
   {% if session.logged_in %}
     <form action="{{ url_for('add_entry') }}" method='post' class='add-entry'>
       <dl>
-        <dt>Title:</dt>
-        <dd><input type='text' size='30' name='title'></dd>
+        <dt class='entry_title'>Title<span class='entry_error'></dt>
+        <dd class='entry_title'><input type='text' size='30' name='title'></dd>
 
-        <dt>Text:</dt>
-        <dd><textarea name='text' rows='5' cols='40' placeholder="What's happening?"></textarea>
-        <dd><button type='submit'>Share it!!</button></dd>
+        <dt class='entry_text'>Text<span class='entry_error'></span></dt>
+        <dd class='entry_text'><textarea name='text' rows='5' cols='40' placeholder="What's happening?"></textarea></dd>
+        <dd><button type='submit'>Share it!</button></dd>
       </dl>
     </form>
   {% endif %}
   <h3>Recent Posts</h3>
-  <ul>
+  <ul class='entries'>
   {% for entry in entries %}
-    <li><h2>{{ entry.title }}</h2>{{ entry.text|safe}}
+    <li class='entry' id='entry_{{ entry.id }}' data-timestamp='{{ entry.time }}'>
+      <h2>{{ entry.title }}</h2>
+      <span class='timestamp'>{{ entry.time }}</span><br>
+      {{ entry.text|safe}}
+    </li>
   {% else %}
     <li><em>*crickets*</em></li>
   {% endfor %}

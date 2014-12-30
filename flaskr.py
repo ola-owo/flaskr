@@ -2,7 +2,7 @@ import sqlite3
 from contextlib import closing
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 
-#Note: config is in "FLASKR_SETTINGS.env"
+#Note: config is in "config.py"
 
 #initialize app
 app = Flask(__name__)
@@ -34,8 +34,8 @@ def teardown_request(exception):
 @app.route('/') # run the function below when "/" is requested
 def show_entries(): #function name matches the endpoint: "/show_entries"
     'get entries from db and display in show_entries.html'
-    cur = g.db.execute('SELECT title, text FROM entries ORDER BY id DESC')
-    entries = [dict(title=row[0], text=row[1]) for row in cur.fetchall()] #each row is a tuple: (TITLE, TEXT)
+    cur = g.db.execute('SELECT * FROM entries ORDER BY time desc')
+    entries = [dict(id=row[0], title=row[1], text=row[2], time=row[3]) for row in cur.fetchall()] #each row is a tuple: (TITLE, TEXT)
     return render_template('show_entries.html', entries=entries)
 
 @app.route('/add', methods=['POST'])
@@ -43,7 +43,7 @@ def add_entry():
     if not session.get('logged_in'):
         abort(401)
     g.db.execute(
-        'INSERT INTO entries (title,text) VALUES (?,?)',
+        'INSERT INTO entries (title, text) VALUES (?,?)',
         # ? is a variable ; string formatting can cause sql injection
         [request.form['title'], request.form['text']] # replaces both question marks
     )

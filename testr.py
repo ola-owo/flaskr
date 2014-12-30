@@ -13,10 +13,6 @@ class FlaskrTestCase(unittest.TestCase):
     def tearDown(self):
         os.close(self.db_fd)
         os.unlink(flaskr.app.config['DATABASE'])
-    
-    def test_empty_db(self):
-        rv = self.app.get('/')
-        assert 'crickets' in rv.data
-
+        
 if __name__ == '__main__':
     unittest.main()
