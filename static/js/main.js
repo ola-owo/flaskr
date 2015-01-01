@@ -8,7 +8,7 @@ function getLocalTime(dateTimeString){
   return dateTime;
 }
 $(document).ready(function(){
-  $('.flash').slideDown();
+  $('.flash').slideDown('slow');
   $('.timestamp').hover(function(){
     // change from UTC to local time on hover
     var dateTime = getLocalTime( $(this).parent().attr('data-timestamp') );
@@ -22,11 +22,11 @@ $(document).ready(function(){
     // leave no fields unfilled!
     var error = false;
     $('.entry_error').empty();
-    if( !$('.add-entry input').val() ){
+    if( !$('.add-entry input').val().replace(/\s/g, '') ){
       $('.entry_title .entry_error').text('You need a title!')
       error = true;
     }
-    if( !$('.add-entry textarea').val() ){
+    if( !$('.add-entry textarea').val().replace(/\s/g, '') ){
       $('.entry_text .entry_error').text('You need a description!')
       error = true;
     }

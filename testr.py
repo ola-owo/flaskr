@@ -1,6 +1,8 @@
+#!/usr/bin/env python
+
 'Module for testing Flaskr.py'
 
-import os, unittest, tempfile
+import os, unittest, tempfile, flask
 import flaskr
 
 class FlaskrTestCase(unittest.TestCase):

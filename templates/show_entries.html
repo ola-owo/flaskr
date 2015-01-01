@@ -12,14 +12,16 @@
       </dl>
     </form>
   {% endif %}
-  <h3>Recent Posts</h3>
+  <h2>Recent Posts</h2>
   <ul class='entries'>
   {% for entry in entries %}
     <li class='entry' id='entry_{{ entry.id }}' data-timestamp='{{ entry.time }}'>
-      <h2>{{ entry.title }}</h2>
+      <h3>{{ entry.title }}</h3>
       <span class='timestamp'>{{ entry.time }}</span><br>
-      {{ entry.text|safe}}
+      <div class='submitter'>by <span class='username'>{{ entry.submitter }}</span></div>
+      {{ entry.text }}
     </li>
+    <hr>
   {% else %}
     <li><em>*crickets*</em></li>
   {% endfor %}
